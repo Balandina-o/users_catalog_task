@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useContext } from "react";
-import "../src/App.css";
 import TopBar from "./components/TopBar";
 import Table from "./components/Table";
 import { Context } from "./index";
+import "../src/App.css";
 
 function App() {
   const { users } = useContext(Context);
@@ -20,6 +20,15 @@ function App() {
     { heading: "Номер телефона" },
     { heading: "Адрес" }
   ]
+
+  async function SearchData(searchString) {
+    console.log(searchString);
+
+    const response = await fetch('https://dummyjson.com/users/search?q=' + searchString)
+    const data = await response.json();
+    console.log("Поиск: ", data.users);
+
+  }
 
   async function getData() {
     try {
@@ -42,7 +51,7 @@ function App() {
 
   return (
     <div className="App">
-      <TopBar />
+      <TopBar search={(searchString) => { SearchData(searchString) }} />
       <Table data={dataTable} columns={columns} />
     </div>
 
