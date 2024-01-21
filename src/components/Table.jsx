@@ -422,14 +422,14 @@ const Table = ({ data, columns }) => {
                         return (
                             <React.Fragment key={user.id}>
                                 <tr>
-                                    <td key={user.id}>{user.id}</td>
-                                    <td key={user.id}>{user.lastName}</td>
-                                    <td key={user.id}>{user.firstName}</td>
-                                    <td key={user.id}>{user.maidenName}</td>
-                                    <td key={user.id}>{user.age}</td>
-                                    <td key={user.id}>{user.gender}</td>
-                                    <td key={user.id}>{user.phone}</td>
-                                    <td key={user.id}>{user.address.city} {user.address.address}</td>
+                                    <td>{user.id}</td>
+                                    <td>{user.lastName}</td>
+                                    <td>{user.firstName}</td>
+                                    <td>{user.maidenName}</td>
+                                    <td>{user.age}</td>
+                                    <td>{user.gender}</td>
+                                    <td>{user.phone}</td>
+                                    <td>{user.address.city} {removeIndexFromAddress(user.address.address)}</td>
                                 </tr>
                             </React.Fragment>
                         )
@@ -438,6 +438,14 @@ const Table = ({ data, columns }) => {
             </tbody>
         </table>
     )
+}
+
+function removeIndexFromAddress(line) { //Адрес - "город и название улицы", поэтому избавляемся от цифр в начале строки
+    let result;
+    let lineArr = line.split(' ');
+    lineArr.shift()
+    result = lineArr.join(" ");
+    return result;
 }
 
 Table.propTypes = {
