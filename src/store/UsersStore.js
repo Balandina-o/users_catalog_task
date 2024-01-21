@@ -1,11 +1,11 @@
-import { makeAutoObservable } from "mobx";
+// import { makeAutoObservable } from "mobx";
 
 class UsersStore {
     usersList = [];
 
-    constructor() {
-        makeAutoObservable(this);
-    }
+    // constructor() {
+    //     makeAutoObservable(this);
+    // }
 
     get usersList1() {
         return this.usersList;

@@ -4,9 +4,14 @@
     width: 100vw; /* Ширина таблицы – 100% от экрана пользователя */
     max-width: 1200px; /* Ограничение ширины таблицы - не более 1200px*/
     margin: 2rem auto;
+    background-color: rgb(240,233,227);
   }
 
   .table th, table td {
     border: 1px solid rgb(78,71,67);
     padding: 8px;
+  }
+
+  .table th {
+    background-color: rgb(235,213,205);
   }

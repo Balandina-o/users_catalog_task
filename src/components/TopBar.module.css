@@ -1,0 +1,14 @@
+.first_div{
+    background-color: rgb(138,67,67);
+    padding: 8px;
+}
+
+.second_div{
+    display: flex;
+    color: rgb(240,233,227);
+    font-weight: 400;
+}
+
+html{
+    background-color: rgb(236,238,242);
+}
