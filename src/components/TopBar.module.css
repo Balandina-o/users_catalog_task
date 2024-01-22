@@ -1,6 +1,7 @@
 .first_div{
     background-color: rgb(138,67,67);
     padding: 8px;
+    min-width: 100%;
 }
 
 .second_div{

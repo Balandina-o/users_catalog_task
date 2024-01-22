@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import "../components/UserInfoModalStyle.css"
 
 const UserInfoModal = ({ show, onClose, chosenUserId, chosenUser }) => {
-    console.log(chosenUser);
+
     return (
         <div className={show ? "modal show" : "modal"}>
             <div className="modal_content">
@@ -46,10 +46,10 @@ const UserInfoModal = ({ show, onClose, chosenUserId, chosenUser }) => {
 // }
 
 UserInfoModal.propTypes = {
-    show: PropTypes.func,
+    show: PropTypes.bool,
     onClose: PropTypes.func,
     chosenUserId: PropTypes.number,
-    chosenUser: PropTypes.obj,
+    chosenUser: PropTypes.array,
 }
 
 export default UserInfoModal

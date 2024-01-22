@@ -2,8 +2,17 @@ import React, { useState } from 'react'
 import classes from "./TopBar.module.css"
 import PropTypes from 'prop-types'
 
-const TopBar = ({ search }) => {
+const TopBar = ({ search, startSortLvlUp }) => {
     const [serchData, setSerchData] = useState([]);
+
+    const [changeField, setChangeField] = useState("lastName");
+    const [changeType, setChangeType] = useState(0);
+
+    function startSort() {
+        console.log("changeField", changeField);
+        console.log("changeType", changeType);
+        startSortLvlUp(changeField, changeType);
+    }
 
     return (
         <div className={classes.first_div}>
@@ -11,6 +20,22 @@ const TopBar = ({ search }) => {
                 <label >Введите строку для поиска:</label>
                 <input type="text" onChange={(event) => setSerchData(event.target.value)} />
                 <input type="button" value="Искать" onClick={() => search(serchData)} />
+
+                <label >Поле для сортировки: </label>
+                <select onChange={(event) => setChangeField(event.target.value)}>
+                    <option value="lastName">ФИО</option>
+                    <option value="age">Возраст</option>
+                    <option value="gender">Пол</option>
+                    <option value="address">Адрес</option>
+                </select>
+
+                <label >Тип сортировки: </label>
+                <select onChange={(event) => setChangeType(event.target.value)}>
+                    <option value="0">Без сортировки</option>
+                    <option value="1">По убыванию</option>
+                    <option value="2">По возрастанию</option>
+                </select>
+                <input className="buttonClose" type="button" value="Отсортировать" onClick={startSort} />
             </div>
         </div>
     )
@@ -18,6 +43,7 @@ const TopBar = ({ search }) => {
 
 TopBar.propTypes = {
     search: PropTypes.func,
+    startSortLvlUp: PropTypes.func,
 }
 
 export default TopBar

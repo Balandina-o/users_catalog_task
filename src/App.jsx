@@ -13,6 +13,9 @@ function App() {
   const [dataTable, setDataTable] = useState([]);
   const [FilteredData, setFilteredData] = useState([]);
 
+  const [sortType, setSortType] = useState(0);
+  const [sortField, setSortField] = useState(0);
+
   const columns = [
     { heading: "№" },
     { heading: "ФИО" },
@@ -21,6 +24,51 @@ function App() {
     { heading: "Номер телефона" },
     { heading: "Адрес" }
   ]
+
+  function startSortLvlUp(field, type) {
+    setSortType(type);
+    setSortField(field);
+
+    console.log("changeField1", field);
+    console.log("changeType1", type);
+    const sortedUsersList = [...dataTable]
+
+
+    if (type == 0) {
+      users.setUsersList(dataTable);
+      console.log(sortField);
+      console.log(sortType);
+
+    } else if (type == 1) {
+      sortedUsersList.sort((a, b) => a[field].localeCompare(b[field]))
+      users.setUsersList(sortedUsersList);
+
+    } else {
+      sortedUsersList.sort((a, b) => a[field].localeCompare(b[field]))
+      users.setUsersList(sortedUsersList);
+      users.setUsersList(sortedUsersList.reverse());
+    }
+  }
+
+  // const sortUsersList = (sort) => {
+
+  //   if (sortType == 0) {
+
+  //     console.log("nope");
+  //   } else if (sortType == 1) {
+  //     setSortField(sort);
+  //     const sortedUsersList = [...dataTable]
+  //     sortedUsersList.sort((a, b) => a[sort].localeCompare(b[sort]))
+  //     users.setUsersList(sortedUsersList);
+  //     console.log(sortField);
+  //   } else {
+  //     setSortField(sort);
+  //     const sortedUsersList = [...dataTable]
+  //     sortedUsersList.sort((a, b) => a[sort].localeCompare(b[sort]))
+  //     users.setUsersList(sortedUsersList.reverse());
+  //     console.log(sortField);
+  //   }
+  // }
 
   async function getIdChoosenUser(id) {
     setChosenUserId(id);
@@ -70,7 +118,10 @@ function App() {
 
   return (
     <div className="App">
-      <TopBar search={(searchString) => { SearchData(searchString) }} />
+      <TopBar
+        search={(searchString) => { SearchData(searchString) }}
+        startSortLvlUp={startSortLvlUp}
+      />
       <Table
         data={dataTable}
         columns={columns}
