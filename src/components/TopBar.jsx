@@ -26,7 +26,7 @@ const TopBar = ({ search, startSortLvlUp }) => {
                     <option value="lastName">ФИО</option>
                     <option value="age">Возраст</option>
                     <option value="gender">Пол</option>
-                    <option value="address">Адрес</option>
+                    <option value="address.city">Адрес</option>
                 </select>
 
                 <label >Тип сортировки: </label>

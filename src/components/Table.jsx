@@ -24,7 +24,6 @@ const Table = ({ columns, setShowCreateUserModal, getIdChoosenUser }) => {
                         return (
                             <React.Fragment key={user.id}>
                                 <tr onClick={() => rowOnClick(user.id)}>
-                                    <td >{user.id}</td>
                                     <td>{user.lastName} {user.firstName} {user.maidenName}</td>
                                     <td>{user.age}</td>
                                     <td>{user.gender}</td>

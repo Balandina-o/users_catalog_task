@@ -13,11 +13,10 @@ function App() {
   const [dataTable, setDataTable] = useState([]);
   const [FilteredData, setFilteredData] = useState([]);
 
+  const [sortField, setSortField] = useState("lastName");
   const [sortType, setSortType] = useState(0);
-  const [sortField, setSortField] = useState(0);
 
   const columns = [
-    { heading: "№" },
     { heading: "ФИО" },
     { heading: "Возраст" },
     { heading: "Пол" },
@@ -29,29 +28,40 @@ function App() {
     setSortType(type);
     setSortField(field);
     const sortedUsersList = [...dataTable]
+    console.log(sortedUsersList[0].address.city, "eee");
+
+    if (field == "age") {
+      field && sortedUsersList.sort((a, b) => a[field] - b[field])
+
+    } else if (field == "address.city") {
+      let prop = field.split('.');
+      var len = prop.length;
+
+      sortedUsersList.sort((a, b) => {
+        var i = 0;
+        while (i < len) { a = a[prop[i]]; b = b[prop[i]]; i++; }
+        if (a < b) {
+          return -1;
+        } else if (a > b) {
+          return 1;
+        } else {
+          return 0;
+        }
+      });
+    }
+    else {
+      field && sortedUsersList.sort((a, b) => a[field].localeCompare(b[field]))
+    }
+    users.setUsersList(sortedUsersList);
 
     if (type == 0) {
       users.setUsersList(dataTable);
       console.log(sortField);
       console.log(sortType);
-
     } else if (type == 1) {
-
-      if (field == "age" ?
-        sortedUsersList.sort((a, b) => a[field] - b[field])
-        :
-        sortedUsersList.sort((a, b) => a[field].localeCompare(b[field]))
-      )
-        users.setUsersList(sortedUsersList);
       users.setUsersList(sortedUsersList.reverse());
-
     } else {
-      if (field == "age" ?
-        sortedUsersList.sort((a, b) => a[field] - b[field])
-        :
-        sortedUsersList.sort((a, b) => a[field].localeCompare(b[field]))
-      )
-        users.setUsersList(sortedUsersList);
+      users.setUsersList(sortedUsersList);
     }
   }
 
