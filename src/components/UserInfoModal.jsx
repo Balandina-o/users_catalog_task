@@ -2,21 +2,54 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import "../components/UserInfoModalStyle.css"
 
-const UserInfoModal = ({ show, onClose }) => {
-
+const UserInfoModal = ({ show, onClose, chosenUserId, chosenUser }) => {
+    console.log(chosenUser);
     return (
         <div className={show ? "modal show" : "modal"}>
             <div className="modal_content">
-                Инфа о юзере
-                <input type="button" value="Закрыть" onClick={() => onClose()} />
+                <div className="header">
+                    Информация о пользователе {chosenUserId} <b> {chosenUser.firstName} {chosenUser.lastName}</b>
+                </div>
+                <div className='content'>
+                    <div>
+                        ФИО: {chosenUser.lastName} {chosenUser.firstName} {chosenUser.maidenName}<br />
+                        Возраст: {chosenUser.age}<br />
+                        {/* Адрес: {chosenUser.address.address}<br /> */}
+                        Рост: {chosenUser.height}<br />
+                        Вес: {chosenUser.weight}<br />
+                        Телефон: {chosenUser.phone}<br />
+                        E-mail: {chosenUser.email}<br />
+                    </div>
+
+                    <img
+                        src={chosenUser.image}
+                        className="avatar"
+                        alt="аватар пользователя"
+                    />
+
+                </div>
+            </div>
+            <div className='buttonDiv'>
+                <input className="buttonClose" type="button" value="Закрыть" onClick={() => onClose()} />
+                <div>d</div>
             </div>
         </div >
     )
 }
 
+// function removeIndexFromAddress(line) { //Адрес - "город и название улицы", поэтому избавляемся от цифр в начале строки
+//     let result;
+//     let lineArr = line.split(' ');
+//     lineArr.shift()
+//     result = lineArr.join(" ");
+//     return result;
+// }
+
 UserInfoModal.propTypes = {
     show: PropTypes.func,
     onClose: PropTypes.func,
+    chosenUserId: PropTypes.number,
+    chosenUser: PropTypes.obj,
 }
 
 export default UserInfoModal

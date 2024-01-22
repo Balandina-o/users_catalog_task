@@ -3,8 +3,13 @@ import classes from "./Table.module.css"
 import PropTypes from 'prop-types'
 import { Context } from "../index";
 
-const Table = ({ columns, setShowCreateUserModal }) => {
+const Table = ({ columns, setShowCreateUserModal, getIdChoosenUser }) => {
     const { users } = useContext(Context);
+
+    function rowOnClick(id) {
+        setShowCreateUserModal(true)
+        getIdChoosenUser(id);
+    }
 
     return (
         <table className={classes.table}>
@@ -18,11 +23,9 @@ const Table = ({ columns, setShowCreateUserModal }) => {
                     {users.usersList1.map((user) => {
                         return (
                             <React.Fragment key={user.id}>
-                                <tr onClick={() => setShowCreateUserModal(true)}>
+                                <tr onClick={() => rowOnClick(user.id)}>
                                     <td >{user.id}</td>
-                                    <td>{user.lastName}</td>
-                                    <td>{user.firstName}</td>
-                                    <td>{user.maidenName}</td>
+                                    <td>{user.lastName} {user.firstName} {user.maidenName}</td>
                                     <td>{user.age}</td>
                                     <td>{user.gender}</td>
                                     <td>{user.phone}</td>
@@ -38,7 +41,6 @@ const Table = ({ columns, setShowCreateUserModal }) => {
     )
 }
 
-
 function removeIndexFromAddress(line) { //Адрес - "город и название улицы", поэтому избавляемся от цифр в начале строки
     let result;
     let lineArr = line.split(' ');
@@ -49,6 +51,7 @@ function removeIndexFromAddress(line) { //Адрес - "город и назва
 
 Table.propTypes = {
     setShowCreateUserModal: PropTypes.func,
+    getIdChoosenUser: PropTypes.func,
     columns: PropTypes.array,
 }
 

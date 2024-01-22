@@ -7,23 +7,35 @@ import UserInfoModal from '../src/components/UserInfoModal';
 
 function App() {
   const [showCreateUserModal, setShowCreateUserModal] = useState();
+  const [chosenUserId, setChosenUserId] = useState();
+  const [chosenUser, setChosenUser] = useState({});
   const { users } = useContext(Context);
   const [dataTable, setDataTable] = useState([]);
   const [FilteredData, setFilteredData] = useState([]);
 
-  //console.log("Состояние ", dataTable);
-  //console.log("В сторе ", users.usersList1);
   const columns = [
     { heading: "№" },
-    { heading: "Фамилия" },
-    { heading: "Имя" },
-    { heading: "Отчество" },
+    { heading: "ФИО" },
     { heading: "Возраст" },
     { heading: "Пол" },
     { heading: "Номер телефона" },
     { heading: "Адрес" }
   ]
 
+  async function getIdChoosenUser(id) {
+    setChosenUserId(id);
+
+    try {
+      fetch('https://dummyjson.com/users/' + id)
+        .then(res => res.json())
+        .then((data) => {
+          users.setChosenUser(data);
+          setChosenUser(data);
+        });
+    } catch (e) {
+      console.log(e);
+    }
+  }
 
   async function SearchData(searchString) {
     console.log(searchString);
@@ -59,10 +71,18 @@ function App() {
   return (
     <div className="App">
       <TopBar search={(searchString) => { SearchData(searchString) }} />
-      <Table data={dataTable} columns={columns} setShowCreateUserModal={setShowCreateUserModal} />
+      <Table
+        data={dataTable}
+        columns={columns}
+        setShowCreateUserModal={setShowCreateUserModal}
+        getIdChoosenUser={getIdChoosenUser}
+      />
       <UserInfoModal
         show={showCreateUserModal}
-        onClose={() => setShowCreateUserModal(false)} />
+        onClose={() => setShowCreateUserModal(false)}
+        chosenUserId={chosenUserId}
+        chosenUser={chosenUser}
+      />
     </div>
 
   );
