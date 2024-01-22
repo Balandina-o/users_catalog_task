@@ -3,12 +3,12 @@ import classes from "./Table.module.css"
 import PropTypes from 'prop-types'
 import { Context } from "../index";
 
-const Table = ({ columns, setShowCreateUserModal, getIdChoosenUser }) => {
+const Table = ({ columns, setShowCreateUserModal, getIdChosenUser }) => {
     const { users } = useContext(Context);
 
     function rowOnClick(id) {
         setShowCreateUserModal(true)
-        getIdChoosenUser(id);
+        getIdChosenUser(id);
     }
 
     return (
@@ -50,7 +50,7 @@ function removeIndexFromAddress(line) { //Адрес - "город и назва
 
 Table.propTypes = {
     setShowCreateUserModal: PropTypes.func,
-    getIdChoosenUser: PropTypes.func,
+    getIdChosenUser: PropTypes.func,
     columns: PropTypes.array,
 }
 

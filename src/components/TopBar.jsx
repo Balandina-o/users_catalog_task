@@ -3,16 +3,9 @@ import classes from "./TopBar.module.css"
 import PropTypes from 'prop-types'
 
 const TopBar = ({ search, startSortLvlUp }) => {
-    const [serchData, setSerchData] = useState([]);
-
     const [changeField, setChangeField] = useState("lastName");
     const [changeType, setChangeType] = useState(0);
-
-    function startSort() {
-        console.log("changeField", changeField);
-        console.log("changeType", changeType);
-        startSortLvlUp(changeField, changeType);
-    }
+    const [serchData, setSerchData] = useState([]);
 
     return (
         <div className={classes.first_div}>
@@ -35,7 +28,7 @@ const TopBar = ({ search, startSortLvlUp }) => {
                     <option value="2">{changeField == "age" ? "По возрастанию" : "В алфавитном порядке"}</option>
                     <option value="1">{changeField == "age" ? "По убыванию" : "В обратном алфавитном порядке"}</option>
                 </select>
-                <input className="buttonClose" type="button" value="Отсортировать" onClick={startSort} />
+                <input className="buttonClose" type="button" value="Отсортировать" onClick={() => startSortLvlUp(changeField, changeType)} />
             </div>
         </div>
     )
