@@ -2,6 +2,7 @@
 
 class UsersStore {
     usersList = [];
+    filteredUsersList = [];
 
     // constructor() {
     //     makeAutoObservable(this);
@@ -13,6 +14,10 @@ class UsersStore {
 
     setUsersList(users) {
         this.usersList = users;
+    }
+
+    setFilteredUsersList(filtUsers) {
+        this.filteredUsersList = filtUsers;
     }
 
 }

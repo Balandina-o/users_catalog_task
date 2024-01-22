@@ -1,14 +1,10 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext } from 'react'
 import classes from "./Table.module.css"
 import PropTypes from 'prop-types'
 import { Context } from "../index";
 
-const Table = ({ columns }) => {
+const Table = ({ columns, setShowCreateUserModal }) => {
     const { users } = useContext(Context);
-
-    useEffect(() => {
-        // console.log("muda ", JSON.parse(JSON.stringify(users.usersList1)));
-    }, []);
 
     return (
         <table className={classes.table}>
@@ -19,11 +15,11 @@ const Table = ({ columns }) => {
             </thead>
             <tbody>
                 <>
-                    {JSON.parse(JSON.stringify(users.usersList1)).map((user) => {
+                    {users.usersList1.map((user) => {
                         return (
                             <React.Fragment key={user.id}>
-                                <tr>
-                                    <td>{user.id}</td>
+                                <tr onClick={() => setShowCreateUserModal(true)}>
+                                    <td >{user.id}</td>
                                     <td>{user.lastName}</td>
                                     <td>{user.firstName}</td>
                                     <td>{user.maidenName}</td>
@@ -38,8 +34,10 @@ const Table = ({ columns }) => {
                 </>
             </tbody>
         </table>
+
     )
 }
+
 
 function removeIndexFromAddress(line) { //Адрес - "город и название улицы", поэтому избавляемся от цифр в начале строки
     let result;
@@ -50,6 +48,7 @@ function removeIndexFromAddress(line) { //Адрес - "город и назва
 }
 
 Table.propTypes = {
+    setShowCreateUserModal: PropTypes.func,
     columns: PropTypes.array,
 }
 
