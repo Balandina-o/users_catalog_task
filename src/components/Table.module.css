@@ -14,4 +14,8 @@
 
   .table th {
     background-color: rgb(235,213,205);
+    resize:horizontal;
+    overflow:auto;
+    min-width: 50px;
   }
+  

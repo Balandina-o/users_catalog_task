@@ -8,7 +8,6 @@ import UserInfoModal from '../src/components/UserInfoModal';
 function App() {
   const { users } = useContext(Context);
   const [showCreateUserModal, setShowCreateUserModal] = useState();
-  const [chosenUserId, setChosenUserId] = useState();
   const [chosenUser, setChosenUser] = useState({});
   const [dataTable, setDataTable] = useState([]);
   const [FilteredData, setFilteredData] = useState([]);
@@ -66,8 +65,6 @@ function App() {
   }
 
   async function getIdChoosenUser(id) {
-    setChosenUserId(id);
-
     try {
       fetch('https://dummyjson.com/users/' + id)
         .then(res => res.json())
@@ -126,11 +123,9 @@ function App() {
       <UserInfoModal
         show={showCreateUserModal}
         onClose={() => setShowCreateUserModal(false)}
-        chosenUserId={chosenUserId}
         chosenUser={chosenUser}
       />
     </div>
-
   );
 }
 

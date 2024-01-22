@@ -2,13 +2,13 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import "../components/UserInfoModalStyle.css"
 
-const UserInfoModal = ({ show, onClose, chosenUserId, chosenUser }) => {
+const UserInfoModal = ({ show, onClose, chosenUser }) => {
     // alert(chosenUser.address.city);
     return (
         <div className={show ? "modal show" : "modal"}>
             <div className="modal_content">
                 <div className="header">
-                    Информация о пользователе {chosenUserId} <b> {chosenUser.firstName} {chosenUser.lastName}</b>
+                    Информация о пользователе<b> {chosenUser.firstName} {chosenUser.lastName}</b>
                 </div>
                 <div className='content'>
                     <div>
@@ -47,7 +47,6 @@ function removeIndexFromAddress(line) { //Адрес - "город и назва
 UserInfoModal.propTypes = {
     show: PropTypes.bool,
     onClose: PropTypes.func,
-    chosenUserId: PropTypes.number,
     chosenUser: PropTypes.object,
 }
 
