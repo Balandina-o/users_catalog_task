@@ -31,9 +31,9 @@ const TopBar = ({ search, startSortLvlUp }) => {
 
                 <label >Тип сортировки: </label>
                 <select onChange={(event) => setChangeType(event.target.value)}>
-                    <option value="0">Без сортировки</option>
-                    <option value="1">По убыванию</option>
-                    <option value="2">По возрастанию</option>
+                    <option value="0"> Без сортировки</option>
+                    <option value="2">{changeField == "age" ? "По возрастанию" : "В алфавитном порядке"}</option>
+                    <option value="1">{changeField == "age" ? "По убыванию" : "В обратном алфавитном порядке"}</option>
                 </select>
                 <input className="buttonClose" type="button" value="Отсортировать" onClick={startSort} />
             </div>

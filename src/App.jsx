@@ -6,10 +6,10 @@ import "../src/App.css";
 import UserInfoModal from '../src/components/UserInfoModal';
 
 function App() {
+  const { users } = useContext(Context);
   const [showCreateUserModal, setShowCreateUserModal] = useState();
   const [chosenUserId, setChosenUserId] = useState();
   const [chosenUser, setChosenUser] = useState({});
-  const { users } = useContext(Context);
   const [dataTable, setDataTable] = useState([]);
   const [FilteredData, setFilteredData] = useState([]);
 
@@ -28,11 +28,7 @@ function App() {
   function startSortLvlUp(field, type) {
     setSortType(type);
     setSortField(field);
-
-    console.log("changeField1", field);
-    console.log("changeType1", type);
     const sortedUsersList = [...dataTable]
-
 
     if (type == 0) {
       users.setUsersList(dataTable);
@@ -40,35 +36,24 @@ function App() {
       console.log(sortType);
 
     } else if (type == 1) {
-      sortedUsersList.sort((a, b) => a[field].localeCompare(b[field]))
-      users.setUsersList(sortedUsersList);
+
+      if (field == "age" ?
+        sortedUsersList.sort((a, b) => a[field] - b[field])
+        :
+        sortedUsersList.sort((a, b) => a[field].localeCompare(b[field]))
+      )
+        users.setUsersList(sortedUsersList);
+      users.setUsersList(sortedUsersList.reverse());
 
     } else {
-      sortedUsersList.sort((a, b) => a[field].localeCompare(b[field]))
-      users.setUsersList(sortedUsersList);
-      users.setUsersList(sortedUsersList.reverse());
+      if (field == "age" ?
+        sortedUsersList.sort((a, b) => a[field] - b[field])
+        :
+        sortedUsersList.sort((a, b) => a[field].localeCompare(b[field]))
+      )
+        users.setUsersList(sortedUsersList);
     }
   }
-
-  // const sortUsersList = (sort) => {
-
-  //   if (sortType == 0) {
-
-  //     console.log("nope");
-  //   } else if (sortType == 1) {
-  //     setSortField(sort);
-  //     const sortedUsersList = [...dataTable]
-  //     sortedUsersList.sort((a, b) => a[sort].localeCompare(b[sort]))
-  //     users.setUsersList(sortedUsersList);
-  //     console.log(sortField);
-  //   } else {
-  //     setSortField(sort);
-  //     const sortedUsersList = [...dataTable]
-  //     sortedUsersList.sort((a, b) => a[sort].localeCompare(b[sort]))
-  //     users.setUsersList(sortedUsersList.reverse());
-  //     console.log(sortField);
-  //   }
-  // }
 
   async function getIdChoosenUser(id) {
     setChosenUserId(id);
