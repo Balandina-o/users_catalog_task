@@ -1,6 +1,5 @@
 class UsersStore {
-    usersList = [];
-    chosenUser = {};
+    usersList = []; //актуальный массив пользователей
 
     get usersList1() {
         return this.usersList;
@@ -10,8 +9,5 @@ class UsersStore {
         this.usersList = users;
     }
 
-    setChosenUser(user) {
-        this.chosenUser = user;
-    }
 }
 export default UsersStore;

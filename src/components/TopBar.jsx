@@ -28,15 +28,16 @@ const TopBar = ({ search, startSortLvlUp }) => {
                     <option value="2">{changeField == "age" ? "По возрастанию" : "В алфавитном порядке"}</option>
                     <option value="1">{changeField == "age" ? "По убыванию" : "В обратном алфавитном порядке"}</option>
                 </select>
-                <input className="buttonClose" type="button" value="Отсортировать" onClick={() => startSortLvlUp(changeField, changeType)} />
+                <input className="buttonClose" type="button" value="Отсортировать"
+                    onClick={() => startSortLvlUp(changeField, changeType)} />
             </div>
         </div>
     )
 }
 
 TopBar.propTypes = {
-    search: PropTypes.func,
-    startSortLvlUp: PropTypes.func,
+    search: PropTypes.func, //функция поиска по строке компонента-родителя, передаем туда значение input-а по нажатию кнопки 
+    startSortLvlUp: PropTypes.func, //функция сортировки в родительском компоненте, передаем значения select-ов по нажатию кнопки
 }
 
 export default TopBar

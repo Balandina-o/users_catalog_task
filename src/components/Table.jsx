@@ -2,10 +2,12 @@ import React, { useContext } from 'react'
 import classes from "./Table.module.css"
 import PropTypes from 'prop-types'
 import { Context } from "../index";
+import { removeIndexFromAddress } from "../operations/DataTableOperations"
 
 const Table = ({ columns, setShowCreateUserModal, getIdChosenUser }) => {
     const { users } = useContext(Context);
 
+    // id - номер пользователся, на строку которого кликнули. Вызов модального окна и передача id на уровень выше
     function rowOnClick(id) {
         setShowCreateUserModal(true)
         getIdChosenUser(id);
@@ -36,21 +38,12 @@ const Table = ({ columns, setShowCreateUserModal, getIdChosenUser }) => {
                 </>
             </tbody>
         </table>
-
     )
 }
 
-function removeIndexFromAddress(line) { //Адрес - "город и название улицы", поэтому избавляемся от цифр в начале строки
-    let result;
-    let lineArr = line.split(' ');
-    lineArr.shift()
-    result = lineArr.join(" ");
-    return result;
-}
-
 Table.propTypes = {
-    setShowCreateUserModal: PropTypes.func, //функция компонента-родителя
-    getIdChosenUser: PropTypes.func, //функция компонента-родителя. 
+    setShowCreateUserModal: PropTypes.func,
+    getIdChosenUser: PropTypes.func,
     columns: PropTypes.array, //массив заголовков
 }
 

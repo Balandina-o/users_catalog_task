@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
+import { sortingDataTable } from "./operations/DataTableOperations"
 import UserInfoModal from '../src/components/UserInfoModal';
 import TopBar from "./components/TopBar";
 import Table from "./components/Table";
@@ -21,46 +22,12 @@ function App() {
     { heading: "Адрес" }
   ]
 
-  // field - поле, по которому сортируются данные, type - тип сортировки
   function sorting(field, type) {
     setSortType(type);
     setSortField(field);
-    const sortedUsersList = [...dataTable] //массив - копия актуального перечня данных
+    users.setUsersList(sortingDataTable(field, type, dataTable));
     console.log(sortField);
     console.log(sortType);
-
-    if (field == "age") {
-      sortedUsersList.sort((a, b) => a[field] - b[field])
-
-      //город - вложенный аттрибут => делим его по "." и сравниваем последовательно обе части
-    } else if (field == "address.city") {
-      let prop = field.split('.');
-      var len = prop.length;
-
-      sortedUsersList.sort((a, b) => {
-        var i = 0;
-        while (i < len) { a = a[prop[i]]; b = b[prop[i]]; i++; }
-        if (a < b) {
-          return -1;
-        } else if (a > b) {
-          return 1;
-        } else {
-          return 0;
-        }
-      });
-    }
-    else {
-      sortedUsersList.sort((a, b) => a[field].localeCompare(b[field]))
-    }
-    users.setUsersList(sortedUsersList);
-
-    if (type == 0) { //без сортировки - помещаем в хранилище актуальный перечень данных
-      users.setUsersList(dataTable);
-    } else if (type == 1) {//сортировка "в обратном алфавитном порядке"
-      users.setUsersList(sortedUsersList.reverse());
-    } else {
-      users.setUsersList(sortedUsersList);
-    }
   }
 
   //id - идентификатор пользователя, по строке которого кликнули. Функция для модального окна с подробной информацией
@@ -77,7 +44,6 @@ function App() {
           }
         })
         .then((data) => {
-          users.setChosenUser(data);
           setChosenUser(data);
         });
     } catch (e) {

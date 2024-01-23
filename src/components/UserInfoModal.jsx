@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import "../components/UserInfoModalStyle.css"
+import { removeIndexFromAddress } from "../operations/DataTableOperations"
 
 const UserInfoModal = ({ show, onClose, chosenUser }) => {
     return (
@@ -36,18 +37,12 @@ const UserInfoModal = ({ show, onClose, chosenUser }) => {
     )
 }
 
-function removeIndexFromAddress(line) { //Адрес - "город и название улицы", поэтому избавляемся от цифр в начале строки
-    let result;
-    let lineArr = line.split(' ');
-    lineArr.shift()
-    result = lineArr.join(" ");
-    return result;
-}
-
+//если значение show - true => устанавливаем главному div-у дополнительный класс, отвечающий за увеличение модального окна
+//onClose - присваивает состоянию окна модального окна значение false => окно закрывается
 UserInfoModal.propTypes = {
     show: PropTypes.bool,
     onClose: PropTypes.func,
-    chosenUser: PropTypes.object,
+    chosenUser: PropTypes.object, //выбранный пользователь, информация о конором отображается в модальном окне
 }
 
 export default UserInfoModal

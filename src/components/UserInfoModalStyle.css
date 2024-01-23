@@ -8,11 +8,13 @@
     justify-content: center;
     top: 0;
     left: 0;
-    transform: scale(0);
+    transform: scale(0); /* в обычном состоянии, когда окна не видно (false), его масштаб = 0 */
   }
 
+  /* когда клинкули на строку (true) в тернарном операторе аттрибута ClassName происходит добавление данного класса
+     главному div-у модального окна, так, окну возвращается его изначальный размер */
   .modal.show {
-    transform: scale(1);
+    transform: scale(1); 
   }
 
   .modal_content {
