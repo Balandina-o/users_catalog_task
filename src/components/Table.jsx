@@ -49,9 +49,9 @@ function removeIndexFromAddress(line) { //Адрес - "город и назва
 }
 
 Table.propTypes = {
-    setShowCreateUserModal: PropTypes.func,
-    getIdChosenUser: PropTypes.func,
-    columns: PropTypes.array,
+    setShowCreateUserModal: PropTypes.func, //функция компонента-родителя
+    getIdChosenUser: PropTypes.func, //функция компонента-родителя. 
+    columns: PropTypes.array, //массив заголовков
 }
 
 export default Table

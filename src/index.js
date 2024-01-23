@@ -8,7 +8,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Context.Provider
     value={{
-      users: new UsersStore()
+      users: new UsersStore()//Хранилище списка пользователей
     }}
   >
     <App />

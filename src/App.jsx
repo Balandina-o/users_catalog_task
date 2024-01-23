@@ -3,17 +3,17 @@ import UserInfoModal from '../src/components/UserInfoModal';
 import TopBar from "./components/TopBar";
 import Table from "./components/Table";
 import { Context } from "./index";
-import "../src/App.css";
 
 function App() {
   const { users } = useContext(Context);
+
   const [showCreateUserModal, setShowCreateUserModal] = useState();
   const [chosenUser, setChosenUser] = useState({});
   const [dataTable, setDataTable] = useState([]);
   const [sortField, setSortField] = useState("lastName");
   const [sortType, setSortType] = useState(0);
 
-  const columns = [
+  const columns = [ //Массив объектов с заголовками столбцов таблицы
     { heading: "ФИО" },
     { heading: "Возраст" },
     { heading: "Пол" },
@@ -21,16 +21,18 @@ function App() {
     { heading: "Адрес" }
   ]
 
-  function startSortLvlUp(field, type) {
+  // field - поле, по которому сортируются данные, type - тип сортировки
+  function sorting(field, type) {
     setSortType(type);
     setSortField(field);
-    const sortedUsersList = [...dataTable]
+    const sortedUsersList = [...dataTable] //массив - копия актуального перечня данных
     console.log(sortField);
     console.log(sortType);
 
     if (field == "age") {
       sortedUsersList.sort((a, b) => a[field] - b[field])
 
+      //город - вложенный аттрибут => делим его по "." и сравниваем последовательно обе части
     } else if (field == "address.city") {
       let prop = field.split('.');
       var len = prop.length;
@@ -52,19 +54,28 @@ function App() {
     }
     users.setUsersList(sortedUsersList);
 
-    if (type == 0) {
+    if (type == 0) { //без сортировки - помещаем в хранилище актуальный перечень данных
       users.setUsersList(dataTable);
-    } else if (type == 1) {
+    } else if (type == 1) {//сортировка "в обратном алфавитном порядке"
       users.setUsersList(sortedUsersList.reverse());
     } else {
       users.setUsersList(sortedUsersList);
     }
   }
 
+  //id - идентификатор пользователя, по строке которого кликнули. Функция для модального окна с подробной информацией
   function getIdChosenUser(id) {
     try {
       fetch('https://dummyjson.com/users/' + id)
-        .then(res => res.json())
+        .then(res => {
+          if (res.ok) {
+            return res.json();
+          } else if (res.status === 404) {//отлавливается ошибка со статусом 404, для остальных случаев - общее сообщение
+            return Promise.reject('Ошибка 404. Невозможно получить данные по указанному URL')
+          } else {
+            return Promise.reject('Запрос к серверу завершился ошибкой. Статусный код ответа за пределами диапазона 200-299')
+          }
+        })
         .then((data) => {
           users.setChosenUser(data);
           setChosenUser(data);
@@ -74,10 +85,19 @@ function App() {
     }
   }
 
+  // searchString - строка, по которой осуществляется поиск по таблице
   function SearchData(searchString) {
     try {
       fetch('https://dummyjson.com/users/search?q=' + searchString)
-        .then(res => res.json())
+        .then(res => {
+          if (res.ok) {
+            return res.json();
+          } else if (res.status === 404) {
+            return Promise.reject('Ошибка 404. Невозможно получить данные по указанному URL')
+          } else {
+            return Promise.reject('Запрос к серверу завершился ошибкой. Статусный код ответа за пределами диапазона 200-299')
+          }
+        })
         .then((data) => {
           users.setUsersList(data.users);
           setDataTable(data.users)
@@ -87,17 +107,25 @@ function App() {
     }
   }
 
+  //получение актуального перечня данных по URL при открытии страницы
   function getData() {
-    try {
-      fetch('https://dummyjson.com/users')
-        .then(res => res.json())
-        .then((data) => {
-          users.setUsersList(data.users);
-          setDataTable(data.users)
-        });
-    } catch (e) {
-      console.log(e);
-    }
+    fetch('https://dummyjson.com/users')
+      .then(res => {
+        if (res.ok) {
+          return res.json();
+        } else if (res.status === 404) {
+          return Promise.reject('Ошибка 404. Невозможно получить данные по указанному URL')
+        } else {
+          return Promise.reject('Запрос к серверу завершился ошибкой. Статусный код ответа за пределами диапазона 200-299')
+        }
+      })
+      .then((data) => {
+        users.setUsersList(data.users);
+        setDataTable(data.users)
+      })
+      .catch((error) => {
+        console.log(error)
+      });
   }
 
   useEffect(() => {
@@ -107,9 +135,9 @@ function App() {
 
   return (
     <div className="App">
-      <TopBar
+      <TopBar а
         search={(searchString) => { SearchData(searchString) }}
-        startSortLvlUp={startSortLvlUp}
+        startSortLvlUp={sorting}
       />
       <Table
         data={dataTable}
