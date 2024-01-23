@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/users_catalog_task/static/css/main.9d333088.css",
+    "main.js": "/users_catalog_task/static/js/main.8162a295.js",
+    "index.html": "/users_catalog_task/index.html",
+    "main.9d333088.css.map": "/users_catalog_task/static/css/main.9d333088.css.map",
+    "main.8162a295.js.map": "/users_catalog_task/static/js/main.8162a295.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.9d333088.css",
+    "static/js/main.8162a295.js"
+  ]
+}
