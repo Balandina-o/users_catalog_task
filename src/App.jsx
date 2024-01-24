@@ -114,7 +114,7 @@ function App() {
     <div className="App">
       <TopBar а
         search={(searchString) => { SearchData(searchString) }}
-        startSortLvlUp={sorting}
+        startSortLvlUp={(field, type) => { sorting(field, type) }}
       />
       <Table
         data={dataTable}

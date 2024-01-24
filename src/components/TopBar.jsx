@@ -7,15 +7,22 @@ const TopBar = ({ search, startSortLvlUp }) => {
     const [changeType, setChangeType] = useState(0);
     const [serchData, setSerchData] = useState([]);
 
+    //при нажатии на кнопку поиска значения выпадающих списков возвращаются к начальным
+    function startSearch() {
+        search(serchData);
+        setChangeField("lastName");
+        setChangeType(0);
+    }
+
     return (
         <div className={classes.first_div}>
             <div className={classes.second_div}>
                 <label >Введите строку для поиска:</label>
                 <input type="text" onChange={(event) => setSerchData(event.target.value)} />
-                <input type="button" value="Искать" onClick={() => search(serchData)} />
+                <input type="button" value="Искать" onClick={() => startSearch()} />
 
                 <label >Поле для сортировки: </label>
-                <select onChange={(event) => setChangeField(event.target.value)}>
+                <select value={changeField} onChange={(event) => setChangeField(event.target.value)}>
                     <option value="lastName">ФИО</option>
                     <option value="age">Возраст</option>
                     <option value="gender">Пол</option>
@@ -23,7 +30,7 @@ const TopBar = ({ search, startSortLvlUp }) => {
                 </select>
 
                 <label >Тип сортировки: </label>
-                <select onChange={(event) => setChangeType(event.target.value)}>
+                <select value={changeType} onChange={(event) => setChangeType(event.target.value)}>
                     <option value="0"> Без сортировки</option>
                     <option value="2">{changeField == "age" ? "По возрастанию" : "В алфавитном порядке"}</option>
                     <option value="1">{changeField == "age" ? "По убыванию" : "В обратном алфавитном порядке"}</option>
