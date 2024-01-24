@@ -7,7 +7,7 @@ import { removeIndexFromAddress } from "../operations/DataTableOperations"
 const Table = ({ columns, setShowCreateUserModal, getIdChosenUser }) => {
     const { users } = useContext(Context);
 
-    // id - номер пользователся, на строку которого кликнули. Вызов модального окна и передача id на уровень выше
+    // id - номер пользователся, на строку которого кликнули
     function rowOnClick(id) {
         setShowCreateUserModal(true)
         getIdChosenUser(id);
