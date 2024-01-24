@@ -28,9 +28,9 @@ const operations = {
             sortedUsersList.sort((a, b) => a[field].localeCompare(b[field]))
         }
 
-        if (type == 0) { //без сортировки - помещаем в хранилище актуальный перечень данных
+        if (type == "0") { //без сортировки - помещаем в хранилище актуальный перечень данных
             return dataTable;
-        } else if (type == 1) {//сортировка "в обратном алфавитном порядке"
+        } else if (type == "1") {//сортировка "в обратном алфавитном порядке"
             return sortedUsersList.reverse();
         } else {
             return sortedUsersList;

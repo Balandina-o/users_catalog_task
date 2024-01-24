@@ -26,6 +26,7 @@ function App() {
     setSortType(type);
     setSortField(field);
     users.setUsersList(sortingDataTable(field, type, dataTable));
+    setDataTable(users.usersList1);
     console.log(sortField);
     console.log(sortType);
   }

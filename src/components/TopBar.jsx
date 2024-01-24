@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 
 const TopBar = ({ search, startSortLvlUp }) => {
     const [changeField, setChangeField] = useState("lastName");
-    const [changeType, setChangeType] = useState(0);
+    const [changeType, setChangeType] = useState("0");
     const [serchData, setSerchData] = useState([]);
 
     //при нажатии на кнопку поиска значения выпадающих списков возвращаются к начальным
