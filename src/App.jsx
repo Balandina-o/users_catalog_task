@@ -65,8 +65,19 @@ function App() {
           }
         })
         .then((data) => {
-          users.setUsersList(data.users);
-          setDataTable(data.users)
+          if (data.users.length == 0) {
+            users.setUsersList([]);
+            setDataTable([])
+          }
+          for (let i = 0; i < data.users.length; ++i) {
+            //условие, чтобы не отображались данные извне таблицы (id > 30)
+            if (data.users[i].id & data.users[i].id >= 30) {
+              data.users.splice([i], 1)
+            }
+            users.setUsersList(data.users);
+            setDataTable(data.users)
+          }
+
         });
     } catch (e) {
       console.log(e);
