@@ -30,7 +30,7 @@ const Table = ({ columns, setShowCreateUserModal, getIdChosenUser }) => {
                                     <td>{user.age}</td>
                                     <td>{user.gender}</td>
                                     <td>{user.phone}</td>
-                                    <td>{user.address.city} {removeIndexFromAddress(user.address.address)}</td>
+                                    <td>{user.address.city}, {removeIndexFromAddress(user.address.address)}</td>
                                 </tr>
                             </React.Fragment>
                         )

@@ -14,7 +14,7 @@ const UserInfoModal = ({ show, onClose, chosenUser }) => {
                     <div>
                         ФИО: {chosenUser.lastName} {chosenUser.firstName} {chosenUser.maidenName}<br />
                         Возраст: {chosenUser.age}<br />
-                        Адрес: {chosenUser.address && chosenUser.address.city}
+                        Адрес: {chosenUser.address && chosenUser.address.city},&nbsp;
                         {chosenUser.address && removeIndexFromAddress(chosenUser.address.address)}<br />
                         Рост: {chosenUser.height}<br />
                         Вес: {chosenUser.weight}<br />
