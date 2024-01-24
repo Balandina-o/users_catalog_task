@@ -30,7 +30,7 @@ function App() {
     console.log(sortType);
   }
 
-  //id - идентификатор пользователя, по строке которого кликнули. Функция для модального окна с подробной информацией
+  //id - идентификатор пользователя, по строке которого кликнули
   function getIdChosenUser(id) {
     try {
       fetch('https://dummyjson.com/users/' + id)
