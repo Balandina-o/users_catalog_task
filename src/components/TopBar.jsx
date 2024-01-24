@@ -11,7 +11,7 @@ const TopBar = ({ search, startSortLvlUp }) => {
     function startSearch() {
         search(serchData);
         setChangeField("lastName");
-        setChangeType(0);
+        setChangeType("0");
     }
 
     return (

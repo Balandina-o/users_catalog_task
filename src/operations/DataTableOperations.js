@@ -30,13 +30,13 @@ const operations = {
 
         if (type == "0") { //без сортировки - помещаем в хранилище актуальный перечень данных
             return dataTable;
-        } else if (type == "1") {//сортировка "в обратном алфавитном порядке"
+        } else if (type == "1") { //сортировка "в обратном алфавитном порядке"
             return sortedUsersList.reverse();
         } else {
             return sortedUsersList;
         }
     },
-    //Адрес - "город и название улицы", поэтому избавляемся от цифр в начале строки
+    //Адрес - "город и название улицы", поэтому избавляемся от цифр-индекса в начале строки
     removeIndexFromAddress: function (line) {
         let result;
         let lineArr = line.split(' ');

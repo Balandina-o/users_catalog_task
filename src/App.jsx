@@ -9,10 +9,11 @@ function App() {
   const { users } = useContext(Context);
 
   const [showCreateUserModal, setShowCreateUserModal] = useState();
-  const [chosenUser, setChosenUser] = useState({});
+  const [dataConst, setDataConst] = useState([]);
   const [dataTable, setDataTable] = useState([]);
+  const [chosenUser, setChosenUser] = useState({});
   const [sortField, setSortField] = useState("lastName");
-  const [sortType, setSortType] = useState(0);
+  const [sortType, setSortType] = useState("0");
 
   const columns = [ //Массив объектов с заголовками столбцов таблицы
     { heading: "ФИО" },
@@ -21,12 +22,12 @@ function App() {
     { heading: "Номер телефона" },
     { heading: "Адрес" }
   ]
-
+  //field - поле, по которому осуществляется сортировка, type - тип сортировки
   function sorting(field, type) {
     setSortType(type);
     setSortField(field);
-    users.setUsersList(sortingDataTable(field, type, dataTable));
-    setDataTable(users.usersList1);
+    users.setUsersList(sortingDataTable(field, type, dataConst));
+    setDataTable(sortingDataTable(field, type, dataTable))
     console.log(sortField);
     console.log(sortType);
   }
@@ -67,6 +68,7 @@ function App() {
         })
         .then((data) => {
           if (data.users.length == 0) {
+            setDataConst(data.users);
             users.setUsersList([]);
             setDataTable([])
           }
@@ -75,6 +77,7 @@ function App() {
             if (data.users[i].id & data.users[i].id >= 30) {
               data.users.splice([i], 1)
             }
+            setDataConst(data.users);
             users.setUsersList(data.users);
             setDataTable(data.users)
           }
@@ -98,6 +101,7 @@ function App() {
         }
       })
       .then((data) => {
+        setDataConst(data.users);
         users.setUsersList(data.users);
         setDataTable(data.users)
       })
@@ -118,7 +122,6 @@ function App() {
         startSortLvlUp={(field, type) => { sorting(field, type) }}
       />
       <Table
-        data={dataTable}
         columns={columns}
         setShowCreateUserModal={setShowCreateUserModal}
         getIdChosenUser={getIdChosenUser}
